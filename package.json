@@ -1,0 +1,38 @@
+{
+  "name": "mtor-vue",
+  "version": "1.0.0",
+  "description": "vue 模块化 依赖注入 数据流处理",
+  "author": "sampsonli",
+  "keywords": [
+    "vue 模块",
+    "vue3",
+    "依赖注入",
+    "按需加载",
+    "模块化",
+    "vue 数据流",
+    "typescript"
+  ],
+  "homepage": "https://github.com/sampsonli/mtor-vue",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "npmName": "mtor",
+  "files": [
+    "lib"
+  ],
+  "peerDependencies": {
+    "vue": ">=3"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.15",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.4.4",
+    "typescript": "^5.0.4",
+    "vue": "^3.2.47"
+  }
+}
