@@ -18,6 +18,14 @@ export declare function service(ns: string): <T extends Model, K extends {
     ns: string;
 }>(Clazz: K) => K;
 /**
+ * react hooks 方式获取模块类实例
+ * @param Class 模块类
+ */
+export declare const useModel: <T extends Model>(Class: {
+    new (): T;
+    ns: string;
+}) => UnwrapNestedRefs<T>;
+/**
  * 按照类型自动注入Model实例
  * @param {Model} Class --模块类
  */

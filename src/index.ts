@@ -210,7 +210,7 @@ import type {UnwrapNestedRefs} from "@vue/reactivity";
   * react hooks 方式获取模块类实例
   * @param Class 模块类
   */
-const useModel = <T extends Model>(Class: { new(): T, ns: string }): UnwrapNestedRefs<T> => {
+export const useModel = <T extends Model>(Class: { new(): T, ns: string }): UnwrapNestedRefs<T> => {
      const ns = Class.ns;
      const target = Object.create(allProto[ns]) as T;
      assign(target, allState[ns]);
@@ -239,8 +239,6 @@ const useModel = <T extends Model>(Class: { new(): T, ns: string }): UnwrapNeste
    return data;
 
  };
- module.exports.useModel = useModel;
-
  /**
   * 按照类型自动注入Model实例
   * @param {Model} Class --模块类

@@ -1,6 +1,6 @@
 {
   "name": "mtor-vue",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "vue 模块化 依赖注入 数据流处理",
   "author": "sampsonli",
   "keywords": [
