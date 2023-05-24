@@ -1,6 +1,6 @@
 # 一、mtor-vue 是什么？
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/sampsonli/mtor/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/sampsonli/mtor-vue/blob/master/LICENSE)
 ----
 mtor-vue 是一个基于vue 类响应式数据流状态管理库:
 
@@ -13,7 +13,7 @@ mtor-vue 是一个基于vue 类响应式数据流状态管理库:
 
 ### 面向对象
 把一个功能模块中所有方法和属性， 数据封装成一个模型类，由mtor自动初始化并管理类其实例；
-mtor开发的基本理念， 在数据层面上，更适合基于面向对象开发，展示层面用方法组件而不是类组件。
+mtor-vue开发的基本理念， 在数据层面上，更适合基于面向对象开发，展示层面用方法组件而不是类组件。
 我们可以把页面展示和数据流处理剥离开来， 甚至前端开发可以进一步拆分： “静态页面” 与 “数据处理” 两大块。
 一套数据流处理可以同时应用到多场合，比如pc/h5/小程序
 此外， 完美支持typescript，提供更友好提供类型支持。

@@ -7,6 +7,7 @@
 import {onBeforeUnmount, reactive, shallowReactive, watch} from "vue";
 import {assign} from "./util";
  import {eventBus} from './EventBus';
+ //@ts-ignore
 import type {UnwrapNestedRefs} from "@vue/reactivity";
 
  export {eventBus as evtBus} from './EventBus';
@@ -46,7 +47,7 @@ import type {UnwrapNestedRefs} from "@vue/reactivity";
          delete Clazz.prototype.__wired;
 
          // 给外面用的原型实例
-         const prototype = {setData: undefined as any, reset: undefined as any, onCreated: undefined as any, __origin: instance, onBeforeClean: undefined};
+         const prototype = {setData: undefined as any, reset: undefined as any, onCreated: undefined as any, __origin: instance, onBeforeClean: undefined as any};
 
          // 是否正在同步标志位
          let isSyncing = false;
@@ -209,7 +210,7 @@ import type {UnwrapNestedRefs} from "@vue/reactivity";
   * react hooks 方式获取模块类实例
   * @param Class 模块类
   */
- export const useModel = <T extends Model>(Class: { new(): T, ns: string }): UnwrapNestedRefs<T> => {
+const useModel = <T extends Model>(Class: { new(): T, ns: string }): UnwrapNestedRefs<T> => {
      const ns = Class.ns;
      const target = Object.create(allProto[ns]) as T;
      assign(target, allState[ns]);
@@ -222,8 +223,10 @@ import type {UnwrapNestedRefs} from "@vue/reactivity";
      };
 
      eventBus.on(eventName, setData);
-     const cancelWatch = watch(data, (newObj) => {
+     const cancelWatch = watch(data, (newObj: any) => {
        if(flag) {
+
+           // @ts-ignore
          data.setData(newObj);
        }
        flag = true;
@@ -236,6 +239,7 @@ import type {UnwrapNestedRefs} from "@vue/reactivity";
    return data;
 
  };
+ module.exports.useModel = useModel;
 
  /**
   * 按照类型自动注入Model实例

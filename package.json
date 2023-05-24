@@ -1,6 +1,6 @@
 {
   "name": "mtor-vue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "vue 模块化 依赖注入 数据流处理",
   "author": "sampsonli",
   "keywords": [
@@ -15,13 +15,13 @@
   "homepage": "https://github.com/sampsonli/mtor-vue",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --allowUnreachableCode",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "npmName": "mtor",
+  "npmName": "mtor-vue",
   "files": [
     "lib"
   ],
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
+    "@vue/reactivity": "^3.2.47",
     "jest": "^26.6.3",
     "ts-jest": "^26.4.4",
     "typescript": "^5.0.4",
