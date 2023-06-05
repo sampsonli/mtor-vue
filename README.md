@@ -76,8 +76,32 @@ export default HomeModel;
 
 ### 2. 在页面中使用 model (useModel)
 > 页面引入model目前仅支持方法组件（使用hooks语法），使用方法如下：
-```jsx
+```vue
+<template>
+  <div class="home-page">
+    num6={{model.num}}
+    <br/>
+    <div class="btn" @click="model.add">button</div>
 
+  </div>
+
+</template>
+
+<script>
+import {useModel} from "mtor-vue";
+import HomeModel from "~/views/Home/HomeModel";
+
+export default {
+  name: "Home",
+  setup() {
+    const model = useModel(HomeModel);
+    onMounted(() => {
+      model.init();
+    });
+    return {model};
+  }
+};
+</script>
 
 ```
 - 说明
@@ -87,13 +111,34 @@ export default HomeModel;
 
 ### 3. 在页面中使用 model (useModel 二次封装版 useInitModel)
 > 在上面案例中使用useModel写法 每次页面加载都会重新执行init方法， 如果开发情况下， 修改了页面， 会导致页面热跟新，其实并不需要再次执行init方法， 可以用useInitModel 取代 useModel， 方法如下： 
-```jsx
+```vue
+<template>
+  <div class="home-page">
+    num6={{model.num}}
+    <br/>
+    <div class="btn" @click="model.add">button</div>
 
+  </div>
+
+</template>
+
+<script>
+import {useInitModel} from "mtor-vue";
+import HomeModel from "~/views/Home/HomeModel";
+
+export default {
+  name: "Home",
+  setup() {
+    const model = useInitModel(HomeModel, ({init}) => init());
+    return {model};
+  }
+};
+</script>
 
 ```
 - 说明
-1. useInitModel 底层基于useModel， useEffect 的二次封装方法;
-2. 第二个参数是第一次加载初始化方法，第三个参数是退出是否调用reset方法；
+1. useInitModel 底层基于useModel, onMounted 的二次封装方法;
+2. 第二个参数是第一次加载完初始化方法，第三个参数是退出是否调用reset方法；
 3. useInitModel开发模式做了优化， 页面热更新的时候不会再次调用reset 与初始化方法；
 
 
