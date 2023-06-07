@@ -34,8 +34,8 @@ mtor-vue 核心思想参考了后端java 中spring框架， DI（依赖注入）
 
 # 二、开始使用mtor-vue
 ## 安装
-```shell script
-yarn add mtor-vue # npm install --save mtor-vue
+```shell
+yarn add mtor-vue #or npm install --save mtor-vue
 ```
 ## 从一个简单demo开始
 > 实现一个简单小需求， 从后端接口获取一个随机数，展示在页面中，
@@ -67,7 +67,7 @@ export default HomeModel;
 ~~~
 -说明
 1. @service('home') 定义一个模块， 每个模块必须添加此注解， 其中home 是自己给模块取的名称, 如果不想取名，也可直接用module.id， 比如@service(module.id);
-2. mtor-vue 大量依赖最新注解语法， 需要配置相应babel插件(@babel/plugin-proposal-decorators);
+2. mtor-vue 大量依赖最新注解语法， 需要配置相应babel插件(@babel/plugin-proposal-decorators), 如果使用ts， 需要添加"experimentalDecorators": true;
 3. Model 是个类接口， 主要是给model实例和类提供接口api和属性;
 4. init() 是一个异步方法, 调用接口返回给num属性;
 5. add() 是定义的普通类方法， 此方法给类属性num 加1;
@@ -79,7 +79,7 @@ export default HomeModel;
 ```vue
 <template>
   <div class="home-page">
-    num6={{model.num}}
+    num={{model.num}}
     <br/>
     <div class="btn" @click="model.add">button</div>
 
@@ -114,7 +114,7 @@ export default {
 ```vue
 <template>
   <div class="home-page">
-    num6={{model.num}}
+    num={{model.num}}
     <br/>
     <div class="btn" @click="model.add">button</div>
 

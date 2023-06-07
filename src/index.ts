@@ -25,6 +25,8 @@ const FLAG_PREFIX = 'mtor/';
 // 用于保存所有模块依赖注入注册的事件， 防止热更新的时候内存泄露
 const allEvents = {};
 
+let isHotReload = false;
+
 /**
  * 定义模块
  * @param {string} md -- 模块（必须包含id属性）
@@ -189,7 +191,7 @@ export function service(ns: string) {
                 })
             });
         }
-        const isHotReload = !!allProto[ns];
+        isHotReload = !!allProto[ns];
         if (isHotReload) { // 热更新时候用得到
             initSyncState(allState[ns]);
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -222,29 +224,31 @@ export const useModel = <T extends Model>(Class: { new(): T, ns: string }): Unwr
     const ns = Class.ns;
     const target = Object.create(allProto[ns]) as T;
     assign(target, allState[ns]);
-    const data = shallowReactive(target) as UnwrapNestedRefs<T>
+    const model = shallowReactive(target) as UnwrapNestedRefs<T>
     const eventName = `${FLAG_PREFIX}${ns}`;
     let flag = true; // 避免重复调用watch逻辑
-    const setData = (model: any) => {
-        assign(data, model);
+    const setModel = (md: any) => {
+        if(isHotReload && Object.getPrototypeOf(target) !== allProto[ns]) { // 如果是开发环境热更新， 同步最新方法到模型对象中
+            //@ts-ignore
+            model.__proto__ = allProto[ns];
+        }
+        assign(model, md);
         flag = false;
     };
 
-    eventBus.on(eventName, setData);
-    const cancelWatch = watch(data, (newObj: any) => {
+    eventBus.on(eventName, setModel);
+    const cancelWatch = watch(model, (newObj: any) => {
         if (flag) {
-
-            // @ts-ignore
-            data.setData(newObj);
+            target.setData(newObj);
         }
         flag = true;
     }, {deep: false});
     onBeforeUnmount(() => {
-        eventBus.off(eventName, setData);
+        eventBus.off(eventName, setModel);
         cancelWatch();
     });
 
-    return data;
+    return model;
 
 };
 
