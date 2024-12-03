@@ -4,11 +4,11 @@
  * @license MIT
  */
 // @ts-ignore
-import {onBeforeUnmount, onMounted, reactive, shallowReactive, watch} from "vue";
+import {onBeforeUnmount, onMounted, shallowReactive, watch} from "vue";
 import {assign} from "./util";
 import {eventBus} from './EventBus';
 //@ts-ignore
-import type {UnwrapNestedRefs} from "@vue/reactivity";
+import type { ShallowReactive } from "@vue/reactivity";
 
 // declare const Promise;
 
@@ -220,11 +220,11 @@ export function service(ns: string) {
  * react hooks 方式获取模块类实例
  * @param Class 模块类
  */
-export const useModel = <T extends Model>(Class: { new(): T, ns: string }): UnwrapNestedRefs<T> => {
+export const useModel = <T extends Model>(Class: { new(): T, ns: string }): ShallowReactive<T> => {
     const ns = Class.ns;
     const target = Object.create(allProto[ns]) as T;
     assign(target, allState[ns]);
-    const model = shallowReactive(target) as UnwrapNestedRefs<T>
+    const model = shallowReactive(target) as ShallowReactive<T>
     const eventName = `${FLAG_PREFIX}${ns}`;
     let flag = true; // 避免重复调用watch逻辑
     const setModel = (md: any) => {
@@ -312,7 +312,7 @@ const tempObj = {} as { [p: string]: any };
  *
  * @param clean - 是否在页面销毁的时候调用reset方法, 默认true
  */
-export const useInitModel = <T extends Model>(Clazz: { new(): T, ns: string }, initFn: (model: UnwrapNestedRefs<T>) => any = () => null, clean = true): UnwrapNestedRefs<T> => {
+export const useInitModel = <T extends Model>(Clazz: { new(): T, ns: string }, initFn: (model: ShallowReactive<T>) => any = () => null, clean = true): ShallowReactive<T> => {
     const model = useModel(Clazz);
 
     if (tempObj[Clazz.ns]) {

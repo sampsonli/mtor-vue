@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import type { UnwrapNestedRefs } from "@vue/reactivity";
+import type { ShallowReactive } from "@vue/reactivity";
 export { eventBus as evtBus } from './EventBus';
 /**
  * 定义模块
@@ -24,7 +24,7 @@ export declare function service(ns: string): <T extends Model, K extends {
 export declare const useModel: <T extends Model>(Class: {
     new (): T;
     ns: string;
-}) => UnwrapNestedRefs<T>;
+}) => ShallowReactive<T>;
 /**
  * 按照类型自动注入Model实例
  * @param {Model} Class --模块类
@@ -71,4 +71,4 @@ export declare const getModels: () => {
 export declare const useInitModel: <T extends Model>(Clazz: {
     new (): T;
     ns: string;
-}, initFn?: (model: UnwrapNestedRefs<T>) => any, clean?: boolean) => UnwrapNestedRefs<T>;
+}, initFn?: (model: ShallowReactive<T>) => any, clean?: boolean) => ShallowReactive<T>;
