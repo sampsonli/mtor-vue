@@ -51,6 +51,11 @@ export declare class Model {
      * 重置模块数据到初始默认值
      */
     reset(): void;
+    /**
+     * 注册模块reset前调用方法， 可多次调用
+     * @param cb 模块数据被reset前调用回调方法
+     */
+    onBeforeReset(cb: Function): void;
 }
 /**
  * 获取所有模型实例

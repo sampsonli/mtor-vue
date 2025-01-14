@@ -23,7 +23,7 @@ declare class EventBus {
      * @param event - 事件名称
      * @param param - 传递注册事件回调函数的参数
      */
-    emit(event: string, param: any): void;
+    emit(event: string, param?: any): void;
     /**
      * 只注册一次事件， 回调完销毁事件注册
      * @param type - 事件名称

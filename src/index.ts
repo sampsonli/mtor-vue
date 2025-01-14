@@ -56,6 +56,7 @@ export function service(ns: string) {
             reset: undefined as any,
             onCreated: undefined as any,
             __origin: instance,
+            onBeforeReset: undefined as any,
             onBeforeClean: undefined as any
         };
 
@@ -141,6 +142,7 @@ export function service(ns: string) {
                 // @ts-ignore
                 prototype.onBeforeClean();
             }
+            eventBus.emit(`${FLAG_PREFIX}${ns}-reset`);
             const newObj = Object.create(allProto[ns]);
             const origin = allProto[ns].__origin;
             Object.getOwnPropertyNames(origin).forEach(key => {
@@ -153,6 +155,11 @@ export function service(ns: string) {
             allState[ns] = newObj;
             eventBus.emit(TYPE, newObj);
         };
+        prototype.onBeforeReset = (cb: Function) => {
+            if(cb) {
+                eventBus.once(`${FLAG_PREFIX}${ns}-reset`, cb);
+            }
+        }
         const finalInstance = allState[ns] || instance;
         Object.getOwnPropertyNames(instance).forEach(key => {
             initState[key] = finalInstance[key];
@@ -286,6 +293,14 @@ export class Model {
      * 重置模块数据到初始默认值
      */
     reset() {
+        return;
+    }
+
+    /**
+     * 注册模块reset前调用方法， 可多次调用
+     * @param cb 模块数据被reset前调用回调方法
+     */
+    onBeforeReset(cb: Function) {
         return;
     }
 }
