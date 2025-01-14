@@ -300,7 +300,7 @@ export class Model {
      * 注册模块reset前调用方法， 可多次调用
      * @param cb 模块数据被reset前调用回调方法
      */
-    onBeforeReset(cb: Function) {
+    protected onBeforeReset(cb: Function) {
         return;
     }
 }

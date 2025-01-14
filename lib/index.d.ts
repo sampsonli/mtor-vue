@@ -55,7 +55,7 @@ export declare class Model {
      * 注册模块reset前调用方法， 可多次调用
      * @param cb 模块数据被reset前调用回调方法
      */
-    onBeforeReset(cb: Function): void;
+    protected onBeforeReset(cb: Function): void;
 }
 /**
  * 获取所有模型实例
