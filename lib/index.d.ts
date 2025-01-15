@@ -32,7 +32,7 @@ export declare const useModel: <T extends Model>(Class: {
 export declare function inject<T extends Model>(Class: {
     new (): T;
     ns: string;
-}): (clazz: any, attr: any) => void;
+}): (clazz: any, attr: any) => () => string;
 /**
  * 模块基类，每个模块都应继承该基础模块类
  */
